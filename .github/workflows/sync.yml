@@ -1,0 +1,20 @@
+name: Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - name: "Sync"
+      shell: bash
+      run: |
+          chmod +x ./sync.sh
+          ./sync.sh ${{ secrets.PAT }} gnu-efi https://git.code.sf.net/p/gnu-efi/code
